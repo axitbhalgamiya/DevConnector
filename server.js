@@ -7,7 +7,7 @@ connectDB();
 
 var StudentSchema = mongoose.Schema({
     Name: { type : String},
-    no: Int,
+    no: Int32,
     Department: String
 }, {collection: "Student"});
 
