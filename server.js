@@ -3,6 +3,7 @@ const { Int32 } = require('mongodb');
 const mongoose = require('mongoose');
 const connectDB = require('./routes/config/db');
 const app = express();
+//Connect Database
 connectDB();
 
 var StudentSchema = mongoose.Schema({
@@ -13,13 +14,14 @@ var StudentSchema = mongoose.Schema({
 
 var employeeData = mongoose.model('Student', StudentSchema);
 console.log("mydata", employeeData.find({}).then(res => console.log(res)));
-
+//init middleware
+app.use(express.json({extended:false}));
 app.get('/',(req,res) => res.send('API  Running'));
-
-app.use('/api/users',require('./routes/api/users'));
-app.use('/api/auth',require('./routes/api/auth'));
-app.use('/api/posts',require('./routes/api/posts'));
-app.use('/api/profile',require('./routes/api/profile'));
+//Define route
+app.use('/api/users', require('./routes/api/users'));
+app.use('/api/auth', require('./routes/api/auth'));
+app.use('/api/posts', require('./routes/api/posts'));
+app.use('/api/profile', require('./routes/api/profile'));
 
 const PORT = process.env.PORT || 5050;
 
