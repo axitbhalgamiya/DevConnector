@@ -17,14 +17,13 @@ router.post('/',[
     if(!errors.isEmpty()){
         return res.status(400).json({errors : errors.array()});
     }
-    //console.log(req.body);
+    console.log(req.body);
     const {name,email,password} = req.body;
     try{
         let user = await User.findOne({ email });
         if(user){
             return res.status(400).json({errors : [ { msg : 'User already exists'} ] });
         }
-
         const avatar = gravatar.url(email,{
             s:'200',
             r:'pg',
@@ -48,12 +47,12 @@ router.post('/',[
             payload,
             config.get('jwtSecret'),
             { expiresIn: 360000 },
-            (err,token)=> {
+            (err,token) => {
                 if(err) throw err;
                 res.json({ token });
             }
-            );
-    } catch(err){
+        );
+    }catch(err){
         console.error(err.message);
         res.status(500).send('Server Error');
     }   

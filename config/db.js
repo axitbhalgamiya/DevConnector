@@ -1,4 +1,3 @@
-
 const mongoose = require('mongoose');
 let mongoDB = 'mongodb://localhost:27017/College';
 mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true});
@@ -7,7 +6,7 @@ const connectDB = async () => {
     try{
         await mongoose.connect(mongoDB,{
             useNewUrlParser :true,
-            useCreateIndex : true
+            usecreateIndexes : true
         });
         console.log('MongoDB connected...');
     } catch(err){

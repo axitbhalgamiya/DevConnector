@@ -1,18 +1,18 @@
 const express = require('express');
 const { Int32 } = require('mongodb');
 const mongoose = require('mongoose');
-const connectDB = require('./routes/config/db');
+const connectDB = require('./config/db');
 const app = express();
 //Connect Database
 connectDB();
 
 var StudentSchema = mongoose.Schema({
-    Name: { type : String},
-    no: Number,
-    Department: String
-}, {collection: "Student"});
+    email: String,
+    name: String,
+    password: Number,
+}, {collection: "users"});
 
-var employeeData = mongoose.model('Student', StudentSchema);
+var employeeData = mongoose.model('users', StudentSchema);
 console.log("mydata", employeeData.find({}).then(res => console.log(res)));
 //init middleware
 app.use(express.json({extended:false}));
