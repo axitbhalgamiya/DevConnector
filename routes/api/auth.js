@@ -1,15 +1,15 @@
 const express = require('express');
 const router =express.Router();
-const bcrypt = require('bcryptjs');
 const auth = require('../../middleware/auth');
+const bcrypt = require('bcryptjs');
 var jwt = require('jsonwebtoken');
 var config = require('config');
 const { check,validationResult } = require('express-validator');
-
+/*router.get('/',(req,res)=>res.send('Auth Route'));*/
 const User =require('../../models/User');
 router.get('/',auth,async(req,res)=>{
     try{
-       const user= await User.findById(req.user).select('-password');
+       const user= await User.findById(req.users.id).select('-password');
        res.json(user); 
     }catch(err){
         console.error(err.message);
@@ -25,7 +25,7 @@ router.post('/',[
     if(!errors.isEmpty()){
         return res.status(400).json({errors : errors.array()});
     }
-    //console.log(req.body);
+    console.log(req.body);
     const {email,password} = req.body;
     try{
         let user = await User.findOne({ email });

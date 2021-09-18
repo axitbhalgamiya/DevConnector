@@ -7,7 +7,6 @@ var config = require('config');
 const { check,validationResult } = require('express-validator');
 
 const User = require('../../models/User');
-
 router.post('/',[
     check('name','Name is required').not().isEmpty(),
     check('email','include valid email').isEmail(),
